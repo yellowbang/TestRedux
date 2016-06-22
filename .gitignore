@@ -26,6 +26,7 @@ project.xcworkspace
 #
 .idea
 .gradle
+android/app/react.gradle
 local.properties
 
 # node.js
