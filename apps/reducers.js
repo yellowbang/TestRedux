@@ -37,7 +37,7 @@ const search = (state = initialSearchState, action) => {
             return Object.assign({}, state, {isSearching: true});
         case SEARCH_FAILED:
             return Object.assign({}, state, {
-                error: action.message,
+                error: action.message.toString(),
                 isViewingResult: false,
                 isSearching: false,
                 result: {
