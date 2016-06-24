@@ -10,7 +10,7 @@ import React, {
 class Star extends React.Component {
 
     onPress(event) {
-        this.props.toggleFavor(this.props.favor)
+        this.props.toggleFavor(this.props)
     }
 
     render() {
@@ -32,6 +32,7 @@ class Star extends React.Component {
 }
 
 Star.propTypes = {
+    id: React.PropTypes.number.isRequired,
     favor: React.PropTypes.bool.isRequired,
     name: React.PropTypes.string.isRequired,
     toggleFavor: React.PropTypes.func.isRequired

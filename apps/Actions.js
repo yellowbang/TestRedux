@@ -1,10 +1,21 @@
 'use strict';
 
 export const TOGGLE_FAVOR = 'TOGGLE_FAVOR';
+export const ADD_STAR = 'ADD_STAR';
 
-export const toggleFavor = (favor) => {
-    favor = !favor;
-    return {type: TOGGLE_FAVOR, favor}
+export const toggleFavor = (props) => {
+    var favor = !props.favor;
+    var id = props.id;
+    var stars = props.stars;
+    return {type: TOGGLE_FAVOR, stars, favor, id}
+};
+
+export const addStar = () => {
+    const star = {
+        favor: false,
+        name: ''
+    };
+    return {type: ADD_STAR, star}
 };
 // export const toggleFavor = function (aa) {
 //     const favor = !this.props.favor;
