@@ -12,8 +12,9 @@ export const toggleFavor = (props) => {
 
 export const addStar = () => {
     const star = {
+        id: Date.now(),
         favor: false,
-        name: ''
+        name: Date.now().toString()
     };
     return {type: ADD_STAR, star}
 };

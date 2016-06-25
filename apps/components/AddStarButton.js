@@ -7,23 +7,20 @@ import React, {
     TouchableHighlight
 } from 'react-native'
 
-class Star extends React.Component {
+class AddStarButton extends React.Component {
 
     onPress(event) {
-        this.props.toggleFavor(this.props)
+        this.props.addStar()
     }
 
     render() {
-        var propText = this.props.favor? 'true':'false';
-        var nameText = this.props.name;
         return (
             <View style={styles.container}>
                 <TouchableHighlight
-                    underlayColor="yellow"
+                    underlayColor="green"
                     onPress={this.onPress.bind(this)}>
                     <View>
-                        <Text>{nameText}</Text>
-                        <Text>{propText}</Text>
+                        <Text>Add</Text>
                     </View>
                 </TouchableHighlight>
             </View>
@@ -31,22 +28,17 @@ class Star extends React.Component {
     }
 }
 
-Star.propTypes = {
-    id: React.PropTypes.number.isRequired,
-    favor: React.PropTypes.bool.isRequired,
-    name: React.PropTypes.string.isRequired
-};
-
 var styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: '#F1F1F1',
-        paddingTop: 100,
+        backgroundColor: '#F101F1',
+        marginTop: 20,
+        paddingTop: 20,
         paddingLeft: 20,
         paddingRight: 20,
         paddingBottom: 20
     }
 });
 
-module.exports = Star;
+module.exports = AddStarButton;

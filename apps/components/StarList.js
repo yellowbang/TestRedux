@@ -5,7 +5,8 @@ import React, {
     ListView,
     Text,
     StyleSheet,
-    TouchableHighlight
+    TouchableHighlight,
+    Dimensions
 } from 'react-native'
 
 import Star from './Star'
@@ -14,6 +15,7 @@ class StarList extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log('=====',);
         this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
         this.state = {
             dataSource: this.ds.cloneWithRows(this.props.stars)
@@ -43,30 +45,21 @@ class StarList extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <ListView
-                    style={styles.items}
-                    dataSource={this.state.dataSource}
-                    renderRow={this.renderRow.bind(this)} />
-            </View>
+            <ListView
+                style={styles.listView}
+                dataSource={this.state.dataSource}
+                renderRow={this.renderRow.bind(this)} />
         )
     }
 }
 
 var styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        backgroundColor: '#F1F1F1',
-        paddingTop: 100,
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingBottom: 20
-    },
-    items: {
+    listView: {
         flex: 1,
         backgroundColor: '#F1F1F1',
-        padding: 10
+        height: Dimensions.get('window').height-110,
+        padding: 10,
+        marginTop: 20
     },
     row: {
         backgroundColor: '#ffffff',

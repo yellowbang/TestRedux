@@ -9,28 +9,19 @@ import React, {
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux/native'
 import StarList from './components/StarList'
+import AddStarButton from './components/AddStarButton'
 import {
+    addStar,
     toggleFavor
 } from './Actions'
 
 class App extends React.Component {
 
-    onPressAdd(event){
-        console.log('------click add')
-    }
-    
     render() {
         return (
             <View>
-                <View style={styles.addButton}>
-                    <TouchableHighlight
-                        underlayColor="green"
-                        onPress={this.onPressAdd.bind(this)}>
-                        <View>
-                            <Text>Add</Text>
-                        </View>
-                    </TouchableHighlight>
-                </View>
+                <AddStarButton
+                    addStar={this.props.addStar}/>
                 <StarList
                     stars={this.props.reducers.stars}
                     toggleFavor={this.props.toggleFavor}/>
@@ -47,21 +38,9 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
     return bindActionCreators({
+        addStar,
         toggleFavor
     }, dispatch)
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center'
-    },
-    addButton: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        height: 100,
-        padding: 20
-    }
-});
 
 export default connect(stateToProps, dispatchToProps)(App)
