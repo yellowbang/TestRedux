@@ -10,7 +10,7 @@ import React, {
 class AddStarButton extends React.Component {
 
     onPress(event) {
-        this.props.addStar()
+        this.props.addStar(this.props.stars)
     }
 
     render() {

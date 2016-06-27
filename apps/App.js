@@ -12,6 +12,7 @@ import StarList from './components/StarList'
 import AddStarButton from './components/AddStarButton'
 import {
     addStar,
+    onEditName,
     toggleFavor
 } from './Actions'
 
@@ -21,9 +22,11 @@ class App extends React.Component {
         return (
             <View>
                 <AddStarButton
+                    stars={this.props.reducers.stars}
                     addStar={this.props.addStar}/>
                 <StarList
                     stars={this.props.reducers.stars}
+                    onEditName={this.props.onEditName}
                     toggleFavor={this.props.toggleFavor}/>
             </View>
         )
@@ -39,6 +42,7 @@ const stateToProps = (state) => {
 const dispatchToProps = (dispatch) => {
     return bindActionCreators({
         addStar,
+        onEditName,
         toggleFavor
     }, dispatch)
 };

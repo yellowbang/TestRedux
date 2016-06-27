@@ -1,7 +1,15 @@
 'use strict';
 
 export const TOGGLE_FAVOR = 'TOGGLE_FAVOR';
+export const ON_EDIT_NAME = 'ON_EDIT_NAME';
 export const ADD_STAR = 'ADD_STAR';
+
+export const onEditName = function (props, name) {
+    var id = props.id;
+    var stars = props.stars;
+    return {type: ON_EDIT_NAME, stars, name, id}
+
+};
 
 export const toggleFavor = (props) => {
     var favor = !props.favor;
@@ -10,21 +18,15 @@ export const toggleFavor = (props) => {
     return {type: TOGGLE_FAVOR, stars, favor, id}
 };
 
-export const addStar = () => {
-    const star = {
+export const addStar = (stars) => {
+    const newStar = {
         id: Date.now(),
         favor: false,
         name: Date.now().toString()
     };
-    return {type: ADD_STAR, star}
+    return {type: ADD_STAR, newStar, stars}
 };
-// export const toggleFavor = function (aa) {
-//     const favor = !this.props.favor;
-//     return function(dispatch){
-//         dispatch(_changeFavor(favor));
-//     }
-// };
-//
+
 // const _toggleFavor = (dispatch) => {
 //     debugger
 //     const favor = !this.props.favor;

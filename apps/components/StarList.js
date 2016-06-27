@@ -15,18 +15,19 @@ class StarList extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log('=====',);
         this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
         this.state = {
-            dataSource: this.ds.cloneWithRows(this.props.stars)
+            dataSource: this.ds.cloneWithRows(this.props.stars),
+            stars: this.props.stars
         }
     }
 
     componentWillReceiveProps (nextProps) {
         if (nextProps.stars.length !== this.props.stars.length || nextProps.stars !== this.props.stars) {
             this.setState({
-                dataSource: this.state.dataSource.cloneWithRows(nextProps.stars)
-            })
+                dataSource: this.state.dataSource.cloneWithRows(nextProps.stars),
+                stars: nextProps.stars
+            });
         }
     }
 
@@ -34,10 +35,11 @@ class StarList extends React.Component {
         return (
             <View style={styles.row}>
                 <Star
-                    stars={this.props.stars}
+                    stars={this.state.stars}
                     favor={rowData.favor}
                     name={rowData.name}
                     id={rowData.id}
+                    onEditName={this.props.onEditName}
                     toggleFavor={this.props.toggleFavor}/>
             </View>
         )

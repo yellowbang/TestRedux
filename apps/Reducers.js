@@ -3,6 +3,7 @@
 import { combineReducers } from 'redux'
 import {
     ADD_STAR,
+    ON_EDIT_NAME,
     TOGGLE_FAVOR,
 } from './Actions'
 
@@ -19,13 +20,23 @@ const initialState = {
 };
 
 const reducers = (state = initialState, action) => {
-    var stars;
+    var stars, starIndex;
     switch (action.type) {
         case ADD_STAR:
-            stars = state.stars.concat(action.star);
+            stars = cloneData(action.stars);
+            stars.push(action.newStar);
+            return Object.assign({}, state, {stars: stars});
+        case ON_EDIT_NAME:
+            starIndex = findActiveStar(action.stars, action.id);
+            stars = cloneData(action.stars);
+            if (starIndex === -1) {
+                console.log('The star is not existed!');
+            } else {
+                stars[starIndex].name = action.name;
+            }
             return Object.assign({}, state, {stars: stars});
         case TOGGLE_FAVOR:
-            var starIndex = findActiveStar(action.stars, action.id);
+            starIndex = findActiveStar(action.stars, action.id);
             stars = cloneData(action.stars);
             if (starIndex === -1) {
                 console.log('The star is not existed!');
