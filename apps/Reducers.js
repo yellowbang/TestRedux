@@ -3,50 +3,70 @@
 import { combineReducers } from 'redux'
 import {
     ADD_STAR,
+    REMOVE_STAR,
+    REMOVE_ALL_SELECTED_STARS,
     ON_EDIT_NAME,
     TOGGLE_FAVOR,
+    SELECTED_STAR,
 } from './Actions'
 
 const initialState = {
     stars:[{
         name: 'Sun',
         id: Date.now(),
+        selected: false,
         favor: false
     },{
         name: 'Moon',
         id: Date.now()+1,
+        selected: false,
         favor: false
     }]
 };
 
 const reducers = (state = initialState, action) => {
-    var stars, starIndex;
+    var stars, originalStars, starIndex;
+    stars = (action && action.stars)? cloneData(action.stars):[];
+    originalStars = action.stars;
     switch (action.type) {
         case ADD_STAR:
-            stars = cloneData(action.stars);
             stars.push(action.newStar);
-            return Object.assign({}, state, {stars: stars});
+            break;
+        case REMOVE_STAR:
+            starIndex = findActiveStar(originalStars, action.id);
+            stars.splice(starIndex, 1);
+            break;
+        case REMOVE_ALL_SELECTED_STARS:
+            stars = filterOutSelectedStars(originalStars);
+            break;
         case ON_EDIT_NAME:
-            starIndex = findActiveStar(action.stars, action.id);
-            stars = cloneData(action.stars);
+            starIndex = findActiveStar(originalStars, action.id);
             if (starIndex === -1) {
                 console.log('The star is not existed!');
             } else {
                 stars[starIndex].name = action.name;
             }
-            return Object.assign({}, state, {stars: stars});
+            break;
         case TOGGLE_FAVOR:
-            starIndex = findActiveStar(action.stars, action.id);
-            stars = cloneData(action.stars);
+            starIndex = findActiveStar(originalStars, action.id);
             if (starIndex === -1) {
                 console.log('The star is not existed!');
             } else {
                 stars[starIndex].favor = action.favor;
             }
-            return Object.assign({}, state, {stars: stars});
+            break;
+        case SELECTED_STAR:
+            starIndex = findActiveStar(originalStars, action.id);
+            if (starIndex === -1) {
+                console.log('The star is not existed!');
+            } else {
+                stars[starIndex].selected = action.selected;
+            }
+            break;
         default:
             return state
     }
+    return Object.assign({}, state, {stars: stars});
 };
 
 const findActiveStar = (stars, id) => {
@@ -55,6 +75,12 @@ const findActiveStar = (stars, id) => {
         if (star.id === id) return i;
     }
     return -1;
+};
+
+const filterOutSelectedStars = (stars) => {
+    return stars.filter(function(star){
+        return star.selected === false
+    })
 };
 
 const cloneData = (data) => {

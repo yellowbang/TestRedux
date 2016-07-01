@@ -10,9 +10,13 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux/native'
 import StarList from './components/StarList'
 import AddStarButton from './components/AddStarButton'
+import RemoveStarsButton from './components/RemoveStarsButton'
 import {
     addStar,
+    removeStar,
+    removeAllSelectedStars,
     onEditName,
+    selectStar,
     toggleFavor
 } from './Actions'
 
@@ -24,10 +28,15 @@ class App extends React.Component {
                 <AddStarButton
                     stars={this.props.reducers.stars}
                     addStar={this.props.addStar}/>
+                <RemoveStarsButton
+                    stars={this.props.reducers.stars}
+                    removeAllSelectedStars={this.props.removeAllSelectedStars}/>
                 <StarList
                     stars={this.props.reducers.stars}
                     onEditName={this.props.onEditName}
-                    toggleFavor={this.props.toggleFavor}/>
+                    removeStar={this.props.removeStar}
+                    toggleFavor={this.props.toggleFavor}
+                    selectStar={this.props.selectStar}/>
             </View>
         )
     }
@@ -42,7 +51,10 @@ const stateToProps = (state) => {
 const dispatchToProps = (dispatch) => {
     return bindActionCreators({
         addStar,
+        removeStar,
+        removeAllSelectedStars,
         onEditName,
+        selectStar,
         toggleFavor
     }, dispatch)
 };

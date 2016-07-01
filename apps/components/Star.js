@@ -7,25 +7,46 @@ import React, {
     StyleSheet,
     TouchableHighlight
 } from 'react-native'
+import CheckBox from 'react-native-checkbox';
 
 class Star extends React.Component {
 
-    onPress(event) {
-        this.props.toggleFavor(this.props)
+    onToggleFavor(event) {
+        this.props.toggleFavor(this.props, this.state.stars)
     }
 
+    onPressDelete(event) {
+        this.props.removeStar(this.props, this.state.stars)
+    }
+
+    onSelected(event) {
+        this.props.selectStar(this.props, this.state.stars)
+    }
+    
     onEditName (text) {
-        this.props.onEditName(this.props, text)
+        this.props.onEditName(this.props, this.state.stars, text)
     }
 
+    constructor(props) {
+        super(props);
+        this.state = {stars: this.props.stars}
+    }
+
+    componentWillReceiveProps (nextProps) {
+        if (nextProps.stars.length !== this.props.stars.length) {
+            this.setState({'stars': nextProps.stars});
+        }
+    }
+    
     render() {
         var propText = this.props.favor? 'true':'false';
+        var selected = this.props.selected;
         var nameText = this.props.name;
         return (
             <View style={styles.container}>
                 <TouchableHighlight
                     underlayColor="yellow"
-                    onPress={this.onPress.bind(this)}>
+                    onPress={this.onToggleFavor.bind(this)}>
                     <View>
                         <TextInput
                             style={styles.nameField}
@@ -34,6 +55,16 @@ class Star extends React.Component {
                         />
                         <Text>{nameText}</Text>
                         <Text>{propText}</Text>
+                        <CheckBox
+                            label=''
+                            checked={selected}
+                            onChange={this.onSelected.bind(this)}
+                        />
+                        <TouchableHighlight
+                            underlayColor="orange"
+                            onPress={this.onPressDelete.bind(this)}>
+                            <Text style={styles.deleteButton}>DELETE</Text>
+                        </TouchableHighlight>
                     </View>
                 </TouchableHighlight>
             </View>
@@ -44,6 +75,7 @@ class Star extends React.Component {
 Star.propTypes = {
     id: React.PropTypes.number.isRequired,
     favor: React.PropTypes.bool.isRequired,
+    selected: React.PropTypes.bool.isRequired,
     name: React.PropTypes.string.isRequired
 };
 
@@ -61,6 +93,9 @@ var styles = StyleSheet.create({
         height: 40,
         borderColor: 'gray',
         borderWidth: 1
+    },
+    deleteButton: {
+        color: 'red'
     }
 });
 
