@@ -4,12 +4,10 @@ import React, {
     View,
     ListView,
     Text,
-    TextInput,
     StyleSheet,
     TouchableHighlight,
     Dimensions
 } from 'react-native'
-import CheckBox from 'react-native-checkbox';
 
 import Star from './Star'
 
@@ -33,62 +31,19 @@ class StarList extends React.Component {
         }
     }
 
-
-    onToggleFavor(props) {
-        this.props.toggleFavor(props, this.state.stars)
-    }
-
-    onPressDelete(props) {
-        this.props.removeStar(props, this.state.stars)
-    }
-
-    onSelected(props) {
-        this.props.selectStar(props, this.state.stars)
-    }
-
-    onEditName (props, text) {
-        this.props.onEditName(props, this.state.stars, text)
-    }
-
     renderRow(rowData) {
-        var favor = rowData.favor;
-        var favorText = rowData.favor? 'true':'false';
-        var selected = rowData.selected;
-        var nameText = rowData.name;
-        var id = rowData.id;
-        var props = {
-            id: id,
-            selected: selected,
-            favor: favor,
-            name: nameText
-        };
         return (
             <View style={styles.row}>
-                <View style={styles.container}>
-                    <TouchableHighlight
-                        underlayColor="yellow"
-                        onPress={() => this.onToggleFavor(props)}>
-                        <View>
-                            <TextInput
-                                style={styles.nameField}
-                                onChangeText={(text) => this.onEditName(props, text)}
-                                value={nameText}
-                            />
-                            <Text>{nameText}</Text>
-                            <Text>{favorText}</Text>
-                            <CheckBox
-                                label=''
-                                checked={selected}
-                                onChange={() => this.onSelected(props)}
-                            />
-                            <TouchableHighlight
-                                underlayColor="orange"
-                                onPress={() => this.onPressDelete(props)}>
-                                <Text style={styles.deleteButton}>DELETE</Text>
-                            </TouchableHighlight>
-                        </View>
-                    </TouchableHighlight>
-                </View>
+                <Star
+                    stars={this.state.stars}
+                    favor={rowData.favor}
+                    selected={rowData.selected}
+                    name={rowData.name}
+                    id={rowData.id}
+                    onEditName={this.props.onEditName}
+                    removeStar={this.props.removeStar}
+                    selectStar={this.props.selectStar}
+                    toggleFavor={this.props.toggleFavor}/>
             </View>
         )
     }

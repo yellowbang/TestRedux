@@ -27,20 +27,19 @@ const initialState = {
 const reducers = (state = initialState, action) => {
     var stars, originalStars, starIndex;
     stars = (action && action.stars)? cloneData(action.stars):[];
-    originalStars = action.stars;
     switch (action.type) {
         case ADD_STAR:
             stars.push(action.newStar);
             break;
         case REMOVE_STAR:
-            starIndex = findActiveStar(originalStars, action.id);
+            starIndex = findActiveStar(stars, action.id);
             stars.splice(starIndex, 1);
             break;
         case REMOVE_ALL_SELECTED_STARS:
-            stars = filterOutSelectedStars(originalStars);
+            stars = filterOutSelectedStars(stars);
             break;
         case ON_EDIT_NAME:
-            starIndex = findActiveStar(originalStars, action.id);
+            starIndex = findActiveStar(stars, action.id);
             if (starIndex === -1) {
                 console.log('The star is not existed!');
             } else {
@@ -48,7 +47,7 @@ const reducers = (state = initialState, action) => {
             }
             break;
         case TOGGLE_FAVOR:
-            starIndex = findActiveStar(originalStars, action.id);
+            starIndex = findActiveStar(stars, action.id);
             if (starIndex === -1) {
                 console.log('The star is not existed!');
             } else {
@@ -56,7 +55,7 @@ const reducers = (state = initialState, action) => {
             }
             break;
         case SELECTED_STAR:
-            starIndex = findActiveStar(originalStars, action.id);
+            starIndex = findActiveStar(stars, action.id);
             if (starIndex === -1) {
                 console.log('The star is not existed!');
             } else {

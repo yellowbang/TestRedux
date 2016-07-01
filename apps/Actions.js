@@ -7,7 +7,7 @@ export const ADD_STAR = 'ADD_STAR';
 export const REMOVE_STAR = 'REMOVE_STAR';
 export const REMOVE_ALL_SELECTED_STARS = 'REMOVE_ALL_SELECTED_STARS';
 
-var id = 0
+var id = 0;
 
 export const onEditName = function (props, stars, name) {
     var id = props.id;
@@ -34,27 +34,6 @@ export const addStar = (stars) => {
         selected: false,
         favor: false,
         name: id.toString()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
     };
     return {type: ADD_STAR, newStar, stars}
 };

@@ -12,34 +12,28 @@ import CheckBox from 'react-native-checkbox';
 class Star extends React.Component {
 
     onToggleFavor(event) {
-        this.props.toggleFavor(this.props, this.state.stars)
+        this.props.toggleFavor(this.props, this.props.stars)
     }
 
     onPressDelete(event) {
-        this.props.removeStar(this.props, this.state.stars)
+        this.props.removeStar(this.props, this.props.stars)
     }
 
     onSelected(event) {
-        this.props.selectStar(this.props, this.state.stars)
+        this.props.selectStar(this.props, this.props.stars)
     }
     
     onEditName (text) {
-        this.props.onEditName(this.props, this.state.stars, text)
+        this.props.onEditName(this.props, this.props.stars, text)
     }
 
     constructor(props) {
         super(props);
         this.state = {stars: this.props.stars}
     }
-
-    componentWillReceiveProps (nextProps) {
-        if (nextProps.stars.length !== this.props.stars.length) {
-            this.setState({'stars': nextProps.stars});
-        }
-    }
     
     render() {
-        var propText = this.props.favor? 'true':'false';
+        var favorText = this.props.favor? 'true':'false';
         var selected = this.props.selected;
         var nameText = this.props.name;
         return (
@@ -54,9 +48,9 @@ class Star extends React.Component {
                             value={nameText}
                         />
                         <Text>{nameText}</Text>
-                        <Text>{propText}</Text>
+                        <Text>Favor: {favorText}</Text>
                         <CheckBox
-                            label=''
+                            label='selected'
                             checked={selected}
                             onChange={this.onSelected.bind(this)}
                         />
