@@ -8,9 +8,13 @@ import {
     ON_EDIT_NAME,
     TOGGLE_FAVOR,
     SELECTED_STAR,
+    EXIT_DETAIL,
+    READ_DETAIL,
 } from './Actions'
 
 const initialState = {
+    routeTitle: 'Main',
+    currentStar:{},
     stars:[{
         name: 'Sun',
         id: Date.now(),
@@ -62,16 +66,30 @@ const reducers = (state = initialState, action) => {
                 stars[starIndex].selected = action.selected;
             }
             break;
+        case EXIT_DETAIL:
+            return Object.assign({}, state, {
+                routeTitle: 'Main'
+            });
+        case READ_DETAIL:
+            return Object.assign({}, state, {
+                routeTitle: 'Detail',
+                currentStar: findActiveStar(stars, action.id, true)
+            });
         default:
             return state
     }
-    return Object.assign({}, state, {stars: stars});
+    
+    var currentStar = (starIndex >= 0)? stars[starIndex]:{};
+    return Object.assign({}, state, {
+        currentStar: currentStar,
+        stars: stars
+    });
 };
 
-const findActiveStar = (stars, id) => {
+const findActiveStar = (stars, id, returnStar=false) => {
     for (var i=0; i < stars.length; i++){
         var star = stars[i];
-        if (star.id === id) return i;
+        if (star.id === id) return (returnStar)? star:i
     }
     return -1;
 };

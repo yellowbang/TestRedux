@@ -27,6 +27,18 @@ class Star extends React.Component {
         this.props.onEditName(this.props, this.props.stars, text)
     }
 
+    onReadDetail(){
+        this.props.readDetail(this.props, this.props.stars);
+        this.props.navigator.push({
+            routeTitle: 'Detail',
+            id: this.props.id,
+            favor: this.props.favor,
+            selected: this.props.selected,
+            name: this.props.name,
+            exit: this.props.exitDetail
+        });
+    }
+
     constructor(props) {
         super(props);
         this.state = {stars: this.props.stars}
@@ -39,8 +51,8 @@ class Star extends React.Component {
         return (
             <View style={styles.container}>
                 <TouchableHighlight
-                    underlayColor="yellow"
-                    onPress={this.onToggleFavor.bind(this)}>
+                    onPress={this.onReadDetail.bind(this)}
+                    underlayColor="yellow">
                     <View>
                         <TextInput
                             style={styles.nameField}
@@ -48,7 +60,11 @@ class Star extends React.Component {
                             value={nameText}
                         />
                         <Text>{nameText}</Text>
-                        <Text>Favor: {favorText}</Text>
+                        <TouchableHighlight
+                            underlayColor="blue"
+                            onPress={this.onToggleFavor.bind(this)}>
+                            <Text>Favor: {favorText}</Text>
+                        </TouchableHighlight>
                         <CheckBox
                             label='selected'
                             checked={selected}

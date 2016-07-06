@@ -6,6 +6,8 @@ export const ON_EDIT_NAME = 'ON_EDIT_NAME';
 export const ADD_STAR = 'ADD_STAR';
 export const REMOVE_STAR = 'REMOVE_STAR';
 export const REMOVE_ALL_SELECTED_STARS = 'REMOVE_ALL_SELECTED_STARS';
+export const EXIT_DETAIL = 'EXIT_DETAIL';
+export const READ_DETAIL = 'READ_DETAIL';
 
 var id = 0;
 
@@ -45,6 +47,15 @@ export const removeStar = (props, stars) => {
 
 export const removeAllSelectedStars = (stars) => {
     return {type: REMOVE_ALL_SELECTED_STARS, stars}
+};
+
+export const exitDetail = () => {
+    return {type: EXIT_DETAIL}
+};
+
+export const readDetail = (props, stars) => {
+    var id = props.id;
+    return {type: READ_DETAIL, id, stars}
 };
 
 // const _toggleFavor = (dispatch) => {

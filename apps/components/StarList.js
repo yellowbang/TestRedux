@@ -43,7 +43,11 @@ class StarList extends React.Component {
                     onEditName={this.props.onEditName}
                     removeStar={this.props.removeStar}
                     selectStar={this.props.selectStar}
-                    toggleFavor={this.props.toggleFavor}/>
+                    toggleFavor={this.props.toggleFavor}
+                    navigator={this.props.navigator}
+                    readDetail={this.props.readDetail}
+                    exitDetail={this.props.exitDetail}
+                />
             </View>
         )
     }
