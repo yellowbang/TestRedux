@@ -8,6 +8,7 @@
   "dependencies": {
     "react": "15.1.0",
     "react-native": "0.28.0",
-    "react-native-checkbox": "^1.0.13"
+    "react-native-checkbox": "^1.0.13",
+    "redux": "^3.5.2"
   }
 }
